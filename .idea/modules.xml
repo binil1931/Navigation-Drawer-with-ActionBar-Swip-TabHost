@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Navigation-Bar-with-Swip-Tab-Host.iml" filepath="$PROJECT_DIR$/Navigation-Bar-with-Swip-Tab-Host.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/customListFragment/customListFragment.iml" filepath="$PROJECT_DIR$/customListFragment/customListFragment.iml" />
     </modules>
   </component>
 </project>
