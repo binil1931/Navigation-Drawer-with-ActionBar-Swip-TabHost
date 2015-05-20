@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ public class CustomAdapter extends BaseAdapter {
 
 	Context context;
 	List<RowItem> rowItem;
+    private int mode = 1;
 
 	CustomAdapter(Context context, List<RowItem> rowItem) {
 		this.context = context;
@@ -56,8 +59,9 @@ public class CustomAdapter extends BaseAdapter {
 		// setting the image resource and title
 		imgIcon.setImageResource(row_pos.getIcon());
 		txtTitle.setText(row_pos.getTitle());
-
-		return convertView;
+        Animation animation = null;
+        animation = AnimationUtils.loadAnimation(context, R.anim.hyperspace_out);
+        return convertView;
 
 	}
 
