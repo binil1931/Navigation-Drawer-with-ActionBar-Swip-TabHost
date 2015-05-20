@@ -3,6 +3,7 @@
 
     <string name="app_name">NavDrawerPagerSlidingTabStrip</string>
     <string name="action_contact">Contact</string>
+    <string name="imgdesc">imgdesc</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>
@@ -19,5 +20,23 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+    <string-array name="titles">
+        <item>Home</item>
+        <item>Tutorials</item>
+        <item>My Apps</item>
+        <item>OS Versions</item>
+        <item>Tools</item>
+        <item>About Us</item>
+    </string-array>
+
+    <array name="icons">
+        <item>@drawable/home</item>
+        <item>@drawable/tutorials</item>
+        <item>@drawable/app</item>
+        <item>@drawable/os</item>
+        <item>@drawable/tool</item>
+        <item>@drawable/about</item>
+    </array>
 
 </resources>

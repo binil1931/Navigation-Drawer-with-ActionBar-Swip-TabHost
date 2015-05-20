@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.astuetz.PagerSlidingTabStrip;
 
 public class PageSlidingTabStripFragment extends Fragment {
@@ -65,20 +64,20 @@ public class PageSlidingTabStripFragment extends Fragment {
 		}
 
 		@Override
-		public SherlockFragment getItem(int position) {
+		public Fragment getItem(int position) {
 
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
+                case 0:
 
                     return new FragmentA();
 
-                case 1: // Fragment # 0 - This will show FirstFragment
+                case 1:
 
                     return new FragmentB();
-                case 2: // Fragment # 0 - This will show FirstFragment
+                case 2:
 
                     return new FragmentC();
-                case 3: // Fragment # 0 - This will show FirstFragment
+                case 3:
 
                     return new FragmentD();
 
