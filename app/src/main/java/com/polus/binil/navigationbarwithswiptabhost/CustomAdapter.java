@@ -60,7 +60,9 @@ public class CustomAdapter extends BaseAdapter {
 		imgIcon.setImageResource(row_pos.getIcon());
 		txtTitle.setText(row_pos.getTitle());
         Animation animation = null;
-        animation = AnimationUtils.loadAnimation(context, R.anim.hyperspace_out);
+        animation = AnimationUtils.loadAnimation(context, R.anim.wave_scale);
+
+        convertView.startAnimation(animation);
         return convertView;
 
 	}
