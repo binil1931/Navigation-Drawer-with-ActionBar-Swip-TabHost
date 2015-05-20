@@ -28,12 +28,36 @@
         <item>OS Versions</item>
         <item>Tools</item>
         <item>About Us</item>
+
+        <item>OS A</item>
+        <item>Tools A</item>
+        <item>About Us A</item>
+
+        <item>OS Versions B</item>
+        <item>Tools B</item>
+        <item>About Us B</item>
+
+        <item>OS Versions C</item>
+        <item>Tools C </item>
+        <item>About Us C</item>
     </string-array>
 
     <array name="icons">
         <item>@drawable/home</item>
         <item>@drawable/tutorials</item>
         <item>@drawable/app</item>
+        <item>@drawable/os</item>
+        <item>@drawable/tool</item>
+        <item>@drawable/about</item>
+
+        <item>@drawable/os</item>
+        <item>@drawable/tool</item>
+        <item>@drawable/about</item>
+
+        <item>@drawable/os</item>
+        <item>@drawable/tool</item>
+        <item>@drawable/about</item>
+
         <item>@drawable/os</item>
         <item>@drawable/tool</item>
         <item>@drawable/about</item>
