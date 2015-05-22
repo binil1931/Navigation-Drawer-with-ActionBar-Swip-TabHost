@@ -1,7 +1,10 @@
 package com.polus.binil.navigationbarwithswiptabhost;
 
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -16,20 +19,25 @@ import java.util.List;
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
  */
-public class FragmentB extends ListFragment implements AdapterView.OnItemClickListener{
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class FragmentB extends ListFragment implements AdapterView.OnItemClickListener {
 
     String[] menutitles;
     TypedArray menuIcons;
-
     CustomAdapter adapter;
+    private ActionBar actionBar;
     private List<RowItem> rowItems;
+
 
     public FragmentB() {
         // Required empty public constructor
     }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_b, container, false);
@@ -63,4 +71,6 @@ public class FragmentB extends ListFragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(),"" +position,Toast.LENGTH_LONG).show();
     }
+
+
 }

@@ -1,25 +1,44 @@
 package com.polus.binil.navigationbarwithswiptabhost;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.polus.binil.navigationbarwithswiptabhost.adapter.TitleNavigationAdapter;
+import com.polus.binil.navigationbarwithswiptabhost.model.SpinnerNavItem;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends SherlockFragmentActivity {
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class MainActivity extends SherlockFragmentActivity implements ActionBar.OnNavigationListener {
+
 
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
     ActionBarDrawerToggle mDrawerToggle;
-
+    // action bar
+    private ActionBar actionBar;
+    // Title navigation Spinner data
+    private ArrayList<SpinnerNavItem> navSpinner;
+    // Navigation adapter
+    private TitleNavigationAdapter adapter;
+    // Refresh menu item
+    private MenuItem refreshMenuItem;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
@@ -33,6 +52,35 @@ public class MainActivity extends SherlockFragmentActivity {
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        //----------------------------------------------------------------------
+        // Start Action bar options
+        //----------------------------------------------------------------------
+
+        actionBar = getActionBar();
+
+        // Hide the action bar title
+        actionBar.setDisplayShowTitleEnabled(false);
+        // Enabling Spinner dropdown navigation
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+        // Spinner title navigation data
+        navSpinner = new ArrayList<SpinnerNavItem>();
+        navSpinner.add(new SpinnerNavItem("Local", R.drawable.ic_location));
+        navSpinner
+                .add(new SpinnerNavItem("My Places", R.drawable.ic_my_places));
+        navSpinner.add(new SpinnerNavItem("Checkins", R.drawable.ic_checkin));
+        navSpinner.add(new SpinnerNavItem("Latitude", R.drawable.ic_latitude));
+
+        // title drop down adapter
+        adapter = new TitleNavigationAdapter(getApplicationContext(),
+                navSpinner);
+
+        // assigning the spinner navigation
+        actionBar.setListNavigationCallbacks(adapter, this);
+        //----------------------------------------------------------------------
+        // End Action bar options
+        //----------------------------------------------------------------------
 
 // set a custom shadow that overlays the main content when the drawer
         // opens
@@ -77,6 +125,8 @@ public class MainActivity extends SherlockFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -94,7 +144,27 @@ public class MainActivity extends SherlockFragmentActivity {
                 }
                 break;
             }
-
+            case R.id.action_search:
+                // search action
+                return true;
+            case R.id.action_location_found:
+                // location found
+                LocationFound();
+                return true;
+            case R.id.action_refresh:
+                // refresh
+                refreshMenuItem = (MenuItem) item;
+                // load the data from server
+                new SyncData().execute();
+                return true;
+            case R.id.action_help:
+                // help action
+                return true;
+            case R.id.action_check_updates:
+                // check for updates action
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
          //  case R.id.action_contact:
                 // QuickContactFragment dialog = new QuickContactFragment();
                 // dialog.show(getSupportFragmentManager(), "QuickContactFragment");
@@ -105,16 +175,19 @@ public class MainActivity extends SherlockFragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // The click listener for ListView in the navigation drawer
-    private class DrawerItemClickListener implements
-            ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            selectItem(position);
-        }
+    /**
+     * Launching new activity
+     */
+    private void LocationFound() {
+        Toast.makeText(getApplicationContext(), "Location Address", Toast.LENGTH_LONG).show();
     }
 
+    ;
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        return false;
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -153,6 +226,51 @@ public class MainActivity extends SherlockFragmentActivity {
         }
 
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    /**
+     * Async task to load the data from server
+     * *
+     */
+    private class SyncData extends AsyncTask<String, Void, String> {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+        @Override
+        protected void onPreExecute() {
+            // set the progress bar view
+            refreshMenuItem.setActionView(R.layout.action_progressbar);
+
+            refreshMenuItem.expandActionView();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // not making real request in this demo
+            // for now we use a timer to wait for sometime
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+        @Override
+        protected void onPostExecute(String result) {
+            refreshMenuItem.collapseActionView();
+            // remove the progress bar view
+            refreshMenuItem.setActionView(null);
+        }
+    }
+
+    // The click listener for ListView in the navigation drawer
+    private class DrawerItemClickListener implements
+            ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            selectItem(position);
+        }
     }
 
 
